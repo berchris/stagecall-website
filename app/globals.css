@@ -29,3 +29,11 @@ body {
   background: rgba(245, 185, 66, 0.25);
   color: #fff;
 }
+
+.nav-desktop { display: none; }
+.nav-mobile  { display: flex; }
+
+@media (min-width: 640px) {
+  .nav-desktop { display: flex; }
+  .nav-mobile  { display: none; }
+}
