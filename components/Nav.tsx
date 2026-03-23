@@ -40,8 +40,8 @@ export default function Nav() {
           STAGECALL
         </span>
 
-        {/* Desktop links */}
-        <ul className="desktop-nav" style={{ display: 'flex', gap: 32, listStyle: 'none', alignItems: 'center', margin: 0, padding: 0 }}>
+        {/* Desktop links — hidden on mobile */}
+        <ul className="hidden sm:flex" style={{ gap: 32, listStyle: 'none', alignItems: 'center', margin: 0, padding: 0 }}>
           {links.map((link) => (
             <li key={link.href}>
               <a
@@ -56,10 +56,10 @@ export default function Nav() {
           ))}
         </ul>
 
-        {/* Desktop CTA */}
+        {/* Desktop CTA — hidden on mobile */}
         <a
           href="#early-access"
-          className="desktop-nav"
+          className="hidden sm:block"
           style={{
             background: 'var(--gold)',
             color: '#0B0B16',
@@ -76,9 +76,9 @@ export default function Nav() {
           Get early access
         </a>
 
-        {/* Mobile hamburger */}
+        {/* Hamburger — only on mobile */}
         <button
-          className="mobile-nav"
+          className="sm:hidden"
           onClick={() => setMenuOpen((o) => !o)}
           style={{
             background: 'none',
@@ -91,15 +91,15 @@ export default function Nav() {
           }}
           aria-label="Toggle menu"
         >
-          <span style={{ display: 'block', width: 22, height: 2, background: menuOpen ? 'var(--gold)' : 'var(--text)', borderRadius: 2, transition: 'all 0.2s', transform: menuOpen ? 'translateY(7px) rotate(45deg)' : 'none' }} />
-          <span style={{ display: 'block', width: 22, height: 2, background: menuOpen ? 'var(--gold)' : 'var(--text)', borderRadius: 2, transition: 'all 0.2s', opacity: menuOpen ? 0 : 1 }} />
-          <span style={{ display: 'block', width: 22, height: 2, background: menuOpen ? 'var(--gold)' : 'var(--text)', borderRadius: 2, transition: 'all 0.2s', transform: menuOpen ? 'translateY(-7px) rotate(-45deg)' : 'none' }} />
+          <span style={{ display: 'block', width: 22, height: 2, background: 'var(--text)', borderRadius: 2, transition: 'all 0.2s', transform: menuOpen ? 'translateY(7px) rotate(45deg)' : 'none' }} />
+          <span style={{ display: 'block', width: 22, height: 2, background: 'var(--text)', borderRadius: 2, transition: 'all 0.2s', opacity: menuOpen ? 0 : 1 }} />
+          <span style={{ display: 'block', width: 22, height: 2, background: 'var(--text)', borderRadius: 2, transition: 'all 0.2s', transform: menuOpen ? 'translateY(-7px) rotate(-45deg)' : 'none' }} />
         </button>
       </nav>
 
-      {/* Mobile dropdown */}
+      {/* Mobile dropdown — only on mobile */}
       <div
-        className="mobile-nav"
+        className="sm:hidden"
         style={{
           position: 'fixed',
           top: 64,
@@ -108,7 +108,7 @@ export default function Nav() {
           zIndex: 99,
           background: 'rgba(11,11,22,0.96)',
           backdropFilter: 'blur(16px)',
-          borderBottom: '1px solid #111120',
+          borderBottom: menuOpen ? '1px solid #111120' : 'none',
           padding: menuOpen ? '16px 24px 24px' : '0 24px',
           maxHeight: menuOpen ? 300 : 0,
           overflow: 'hidden',
@@ -152,17 +152,6 @@ export default function Nav() {
           Get early access
         </a>
       </div>
-
-      <style>{`
-        @media (max-width: 640px) {
-          .desktop-nav { display: none !important; }
-          .mobile-nav { display: flex !important; }
-        }
-        @media (min-width: 641px) {
-          .desktop-nav { display: flex !important; }
-          .mobile-nav { display: none !important; }
-        }
-      `}</style>
     </>
   )
 }
