@@ -37,3 +37,77 @@ body {
   .nav-desktop { display: flex; }
   .nav-mobile  { display: none; }
 }
+
+/* Hero layout */
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1100px;
+  gap: 48px;
+}
+
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 900px) {
+  .hero-inner {
+    flex-direction: row;
+    align-items: center;
+    gap: 80px;
+  }
+  .hero-text {
+    flex: 1;
+    text-align: left;
+  }
+  .hero-buttons {
+    justify-content: flex-start;
+  }
+}
+
+/* Phone mockup animations */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes phoneRowBounce {
+  0%   { opacity: 0; transform: translateX(-18px) scaleY(0.85); }
+  55%  { opacity: 1; transform: translateX(4px)  scaleY(1.02); }
+  80%  { transform: translateX(-2px) scaleY(0.99); }
+  100% { opacity: 1; transform: translateX(0)   scaleY(1); }
+}
+
+@keyframes phoneTimerIn {
+  0%   { opacity: 0.2; transform: scale(0.88); }
+  60%  { transform: scale(1.04); }
+  100% { opacity: 1;   transform: scale(1); }
+}
+
+@keyframes phoneConfirmFlash {
+  0%   { box-shadow: 0 0 0 0 rgba(0,212,170,0.6); }
+  50%  { box-shadow: 0 0 0 5px rgba(0,212,170,0); }
+  100% { box-shadow: none; }
+}
+
+.phone-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 13px;
+  background: #00D4AA;
+  border-radius: 1px;
+  flex-shrink: 0;
+  animation: blink 0.8s step-end infinite;
+}
