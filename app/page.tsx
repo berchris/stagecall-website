@@ -74,35 +74,41 @@ export default function Home() {
       <Nav />
 
       {/* HERO */}
-      <section style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '120px 24px 80px', position: 'relative', overflow: 'hidden' }}>
+      <section style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '120px 24px 80px', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', top: -200, left: '50%', transform: 'translateX(-50%)', width: 700, height: 700, background: 'radial-gradient(circle, rgba(245,185,66,0.07) 0%, transparent 70%)', pointerEvents: 'none' }} />
 
-        <FadeIn>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(245,185,66,0.1)', border: '1px solid rgba(245,185,66,0.25)', borderRadius: 100, padding: '6px 16px', fontSize: 12, fontWeight: 700, color: 'var(--gold)', letterSpacing: 1, textTransform: 'uppercase', marginBottom: 32 }}>
-            🎭 Built for live productions
+        <div className="hero-inner">
+          <div className="hero-text">
+            <FadeIn>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(245,185,66,0.1)', border: '1px solid rgba(245,185,66,0.25)', borderRadius: 100, padding: '6px 16px', fontSize: 12, fontWeight: 700, color: 'var(--gold)', letterSpacing: 1, textTransform: 'uppercase', marginBottom: 32 }}>
+                🎭 Built for live productions
+              </div>
+            </FadeIn>
+
+            <FadeIn delay={0.1}>
+              <h1 style={{ fontSize: 'clamp(42px, 7vw, 80px)', fontWeight: 900, lineHeight: 1.05, letterSpacing: -2, marginBottom: 24, maxWidth: 820 }}>
+                Every call, <span style={{ color: 'var(--gold)' }}>on time.</span><br />Every time.
+              </h1>
+            </FadeIn>
+
+            <FadeIn delay={0.2}>
+              <p style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: 'var(--text-sec)', maxWidth: 520, marginBottom: 48, lineHeight: 1.7 }}>
+                StageCall keeps your production on schedule. Countdown timers and instant alerts for every crew team, delivered the moment they need them.
+              </p>
+            </FadeIn>
+
+            <FadeIn delay={0.3}>
+              <div className="hero-buttons">
+                <a href="#early-access" style={{ background: 'var(--gold)', color: '#0B0B16', padding: '14px 32px', borderRadius: 12, fontSize: 16, fontWeight: 700, textDecoration: 'none' }}>Get early access</a>
+                <a href="#how-it-works" style={{ background: 'transparent', color: 'var(--text-sec)', padding: '14px 32px', borderRadius: 12, fontSize: 16, fontWeight: 700, textDecoration: 'none', border: '1px solid var(--border)' }}>See how it works</a>
+              </div>
+            </FadeIn>
           </div>
-        </FadeIn>
 
-        <FadeIn delay={0.1}>
-          <h1 style={{ fontSize: 'clamp(42px, 7vw, 80px)', fontWeight: 900, lineHeight: 1.05, letterSpacing: -2, marginBottom: 24, maxWidth: 820 }}>
-            Every call, <span style={{ color: 'var(--gold)' }}>on time.</span><br />Every time.
-          </h1>
-        </FadeIn>
-
-        <FadeIn delay={0.2}>
-          <p style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: 'var(--text-sec)', maxWidth: 520, marginBottom: 48, lineHeight: 1.7 }}>
-            StageCall keeps your production on schedule. Countdown timers and instant alerts for every crew team, delivered the moment they need them.
-          </p>
-        </FadeIn>
-
-        <FadeIn delay={0.3}>
-          <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 72 }}>
-            <a href="#early-access" style={{ background: 'var(--gold)', color: '#0B0B16', padding: '14px 32px', borderRadius: 12, fontSize: 16, fontWeight: 700, textDecoration: 'none' }}>Get early access</a>
-            <a href="#how-it-works" style={{ background: 'transparent', color: 'var(--text-sec)', padding: '14px 32px', borderRadius: 12, fontSize: 16, fontWeight: 700, textDecoration: 'none', border: '1px solid var(--border)' }}>See how it works</a>
+          <div className="hero-phone-wrap">
+            <FadeIn delay={0.4}><PhoneMockup /></FadeIn>
           </div>
-        </FadeIn>
-
-        <FadeIn delay={0.4}><PhoneMockup /></FadeIn>
+        </div>
       </section>
 
       {/* HOW IT WORKS */}
