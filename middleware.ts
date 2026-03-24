@@ -27,8 +27,10 @@ export async function middleware(request: NextRequest) {
     }
   )
 
-  // Refresh session — must be called before checking user
-  const { data: { user } } = await supabase.auth.getUser()
+  // Use getSession() in middleware — avoids a live network call to Supabase
+  // (getUser() makes a server round-trip which is unreliable on Edge)
+  const { data: { session } } = await supabase.auth.getSession()
+  const user = session?.user ?? null
 
   const isPublic = PUBLIC_PATHS.some(p => pathname.startsWith(p))
 
