@@ -7,14 +7,26 @@ export default function EarlyAccessForm() {
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
 
+  const [error, setError] = useState('')
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!email) return
     setLoading(true)
-    // TODO: wire up to Loops / Resend / Supabase
-    await new Promise((r) => setTimeout(r, 800))
-    setSubmitted(true)
-    setLoading(false)
+    setError('')
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+      if (!res.ok) throw new Error('failed')
+      setSubmitted(true)
+    } catch {
+      setError('Something went wrong. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   if (submitted) {
@@ -36,6 +48,7 @@ export default function EarlyAccessForm() {
   }
 
   return (
+    <div>
     <form onSubmit={handleSubmit} style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
       <input
         type="email"
@@ -79,5 +92,9 @@ export default function EarlyAccessForm() {
         {loading ? 'Saving…' : 'Notify me'}
       </button>
     </form>
+    {error && (
+      <div style={{ color: 'var(--urgent)', fontSize: 14, marginTop: 8 }}>{error}</div>
+    )}
+    </div>
   )
 }
