@@ -111,3 +111,17 @@ body {
   flex-shrink: 0;
   animation: blink 0.8s step-end infinite;
 }
+
+/* Portal styles */
+.portal-input:focus {
+  border-color: var(--gold) !important;
+}
+
+.portal-table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.portal-table-row:hover {
+  background: var(--surface-r);
+}
