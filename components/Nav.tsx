@@ -1,10 +1,17 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { createClient } from '@/lib/supabase/client'
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [signedIn, setSignedIn] = useState(false)
+
+  useEffect(() => {
+    const supabase = createClient()
+    supabase.auth.getSession().then(({ data }) => setSignedIn(!!data.session))
+  }, [])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -46,13 +53,21 @@ export default function Nav() {
           ))}
         </ul>
 
-        {/* Desktop CTA */}
-        <a href="#early-access" className="nav-desktop"
-          style={{ background: 'var(--gold)', color: '#0B0B16', padding: '10px 22px', borderRadius: 12, fontSize: 14, fontWeight: 700, textDecoration: 'none', transition: 'opacity 0.2s' }}
-          onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
-          onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}>
-          Get early access
-        </a>
+        {/* Desktop CTAs */}
+        <div className="nav-desktop" style={{ alignItems: 'center', gap: 10 }}>
+          <a href={signedIn ? '/portal' : '/portal/login'}
+            style={{ background: 'transparent', color: 'var(--text-sec)', padding: '9px 18px', borderRadius: 12, fontSize: 14, fontWeight: 600, textDecoration: 'none', border: '1px solid var(--border)', transition: 'color 0.2s, border-color 0.2s' }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--text)'; e.currentTarget.style.borderColor = 'var(--text-muted)' }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-sec)'; e.currentTarget.style.borderColor = 'var(--border)' }}>
+            {signedIn ? 'My portal' : 'Sign in'}
+          </a>
+          <a href="#early-access"
+            style={{ background: 'var(--gold)', color: '#0B0B16', padding: '10px 22px', borderRadius: 12, fontSize: 14, fontWeight: 700, textDecoration: 'none', transition: 'opacity 0.2s' }}
+            onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
+            onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}>
+            Get early access
+          </a>
+        </div>
 
         {/* Hamburger */}
         <button className="nav-mobile" onClick={() => setMenuOpen((o) => !o)}
@@ -82,8 +97,12 @@ export default function Nav() {
             {link.label}
           </a>
         ))}
+        <a href={signedIn ? '/portal' : '/portal/login'} onClick={() => setMenuOpen(false)}
+          style={{ display: 'block', marginTop: 16, background: 'transparent', color: 'var(--text-sec)', padding: '14px 0', borderRadius: 12, fontSize: 15, fontWeight: 600, textDecoration: 'none', textAlign: 'center', border: '1px solid var(--border)' }}>
+          {signedIn ? 'My portal' : 'Sign in'}
+        </a>
         <a href="#early-access" onClick={() => setMenuOpen(false)}
-          style={{ display: 'block', marginTop: 16, background: 'var(--gold)', color: '#0B0B16', padding: '14px 0', borderRadius: 12, fontSize: 15, fontWeight: 700, textDecoration: 'none', textAlign: 'center' }}>
+          style={{ display: 'block', marginTop: 10, background: 'var(--gold)', color: '#0B0B16', padding: '14px 0', borderRadius: 12, fontSize: 15, fontWeight: 700, textDecoration: 'none', textAlign: 'center' }}>
           Get early access
         </a>
       </div>

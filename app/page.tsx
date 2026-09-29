@@ -2,6 +2,7 @@ import Nav from '@/components/Nav'
 import PhoneMockup from '@/components/PhoneMockup'
 import FadeIn from '@/components/FadeIn'
 import EarlyAccessForm from '@/components/EarlyAccessForm'
+import { Bell, BellRing, CheckCircle2, LayoutList, Eye, Pencil, History, Clapperboard, Timer, Check } from 'lucide-react'
 
 const S = {
   section: { maxWidth: 1100, margin: '0 auto', padding: '100px 24px' } as React.CSSProperties,
@@ -12,18 +13,18 @@ const S = {
 }
 
 const FEATURES = [
-  { icon: '🎯', title: 'Team-specific alerts',   body: "Calls go only to the teams that need them. Sound doesn't get Wardrobe's alerts. Each team sees exactly their schedule, nothing more." },
-  { icon: '✅', title: 'Group acknowledgment',    body: 'One tap from any team member clears the call for the whole team. No chasing everyone for individual confirmations.' },
-  { icon: '📅', title: 'Full timeline view',      body: 'See every call across all teams in chronological order. Know exactly where you are in the schedule at a glance.' },
-  { icon: '👁',  title: 'Team peek',              body: "Managers and Stage Managers can view any team's call schedule in read-only mode without leaving the app." },
-  { icon: '✏️', title: 'Live editing',            body: 'Need to adjust a call mid-show? Managers can edit or delete calls on the fly. Changes reflect instantly for all crew.' },
-  { icon: '📋', title: 'Alert history',           body: 'Full log of every alert that fired — acknowledged by whom and when. Perfect for post-show review.' },
+  { Icon: Bell,         title: 'Team-specific alerts',   body: "Calls go only to the teams that need them. Sound doesn't get Wardrobe's alerts. Each team sees exactly their schedule, nothing more." },
+  { Icon: CheckCircle2, title: 'Group acknowledgment',    body: 'One tap from any team member clears the call for the whole team. No chasing everyone for individual confirmations.' },
+  { Icon: LayoutList,   title: 'Full timeline view',      body: 'See every call across all teams in chronological order. Know exactly where you are in the schedule at a glance.' },
+  { Icon: Eye,          title: 'Team peek',               body: "Managers and Stage Managers can view any team's call schedule in read-only mode without leaving the app." },
+  { Icon: Pencil,       title: 'Live editing',            body: 'Need to adjust a call mid-show? Managers can edit or delete calls on the fly. Changes reflect instantly for all crew.' },
+  { Icon: History,      title: 'Alert history',           body: 'Full log of every alert that fired — acknowledged by whom and when. Perfect for post-show review.' },
 ]
 
 const STEPS = [
-  { num: '01', icon: '🎬', title: 'Create a production',    body: 'Add your show details, set up your teams — Sound, Lighting, Wardrobe, Stage Manager — and invite crew by email or phone.' },
-  { num: '02', icon: '⏱',  title: 'Build your call schedule', body: 'Set up all your calls with how many minutes before show each fires. "Half hour", "Overture call", "Places" — set once, runs forever.' },
-  { num: '03', icon: '🔔', title: 'Run the show',           body: "Crew get alerts at the right moment. One acknowledgment clears the call for the entire team. No chasing, no repeating yourself." },
+  { num: '01', Icon: Clapperboard, title: 'Create a production',     body: 'Add your show details, set up your teams — Sound, Lighting, Wardrobe, Stage Manager — and invite crew by email or phone.' },
+  { num: '02', Icon: Timer,        title: 'Build your call schedule', body: 'Set up all your calls with how many minutes before show each fires. "Half hour", "Overture call", "Places" — set once, runs forever.' },
+  { num: '03', Icon: BellRing,     title: 'Run the show',            body: "Crew get alerts at the right moment. One acknowledgment clears the call for the entire team. No chasing, no repeating yourself." },
 ]
 
 const PLANS = [
@@ -81,7 +82,7 @@ export default function Home() {
           <div className="hero-text">
             <FadeIn>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(245,185,66,0.1)', border: '1px solid rgba(245,185,66,0.25)', borderRadius: 100, padding: '6px 16px', fontSize: 12, fontWeight: 700, color: 'var(--gold)', letterSpacing: 1, textTransform: 'uppercase', marginBottom: 32 }}>
-                🎭 Built for live productions
+                <Clapperboard size={14} strokeWidth={2.5} /> Built for live productions
               </div>
             </FadeIn>
 
@@ -120,7 +121,7 @@ export default function Home() {
           {STEPS.map((step, i) => (
             <FadeIn key={step.num} delay={i * 0.1}>
               <div style={S.card}>
-                <div style={{ fontSize: 32, marginBottom: 16 }}>{step.icon}</div>
+                <div style={{ marginBottom: 16, color: 'var(--gold)' }}><step.Icon size={32} strokeWidth={1.5} /></div>
                 <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, color: 'var(--gold)', textTransform: 'uppercase', marginBottom: 12 }}>Step {step.num}</div>
                 <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 10 }}>{step.title}</h3>
                 <p style={{ fontSize: 14, color: 'var(--text-sec)', lineHeight: 1.65 }}>{step.body}</p>
@@ -140,7 +141,7 @@ export default function Home() {
             {FEATURES.map((f, i) => (
               <FadeIn key={f.title} delay={i * 0.07}>
                 <div style={{ background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: 18, padding: 28 }}>
-                  <div style={{ fontSize: 28, marginBottom: 14 }}>{f.icon}</div>
+                  <div style={{ marginBottom: 14, color: 'var(--gold)' }}><f.Icon size={28} strokeWidth={1.5} /></div>
                   <h3 style={{ fontSize: 17, fontWeight: 700, marginBottom: 8 }}>{f.title}</h3>
                   <p style={{ fontSize: 14, color: 'var(--text-sec)', lineHeight: 1.65 }}>{f.body}</p>
                 </div>
@@ -166,8 +167,8 @@ export default function Home() {
                 <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 12 }}>{r.title}</h3>
                 <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
                   {r.items.map((item) => (
-                    <li key={item} style={{ display: 'flex', gap: 10, fontSize: 14, color: 'var(--text-sec)' }}>
-                      <span style={{ color: 'var(--teal)', fontWeight: 700, flexShrink: 0 }}>✓</span> {item}
+                    <li key={item} style={{ display: 'flex', gap: 10, fontSize: 14, color: 'var(--text-sec)', alignItems: 'center' }}>
+                      <Check size={14} strokeWidth={2.5} color="var(--teal)" style={{ flexShrink: 0 }} /> {item}
                     </li>
                   ))}
                 </ul>
@@ -199,8 +200,11 @@ export default function Home() {
                   <div style={{ height: 1, background: 'var(--border)', marginBottom: 24 }} />
                   <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 28 }}>
                     {plan.features.map((f) => (
-                      <li key={f.label} style={{ display: 'flex', gap: 10, fontSize: 14, color: 'var(--text-sec)', alignItems: 'flex-start' }}>
-                        <span style={{ color: f.yes ? 'var(--teal)' : 'var(--text-muted)', fontWeight: 700, flexShrink: 0 }}>{f.yes ? '✓' : '–'}</span>
+                      <li key={f.label} style={{ display: 'flex', gap: 10, fontSize: 14, color: f.yes ? 'var(--text-sec)' : 'var(--text-muted)', alignItems: 'center' }}>
+                        {f.yes
+                          ? <Check size={14} strokeWidth={2.5} color="var(--teal)" style={{ flexShrink: 0 }} />
+                          : <span style={{ width: 14, textAlign: 'center', flexShrink: 0, color: 'var(--text-muted)' }}>–</span>
+                        }
                         {f.label}
                       </li>
                     ))}
