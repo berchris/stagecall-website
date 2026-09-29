@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import OrgForm from '@/components/portal/OrgForm'
+import PortalShell from '@/components/portal/PortalShell'
 
 export default async function PortalSettingsPage({
   searchParams,
@@ -85,22 +86,24 @@ export default async function PortalSettingsPage({
   }
 
   return (
-    <div style={{ maxWidth: 640, margin: '0 auto', padding: '48px 24px' }}>
-      <div style={{ marginBottom: 32 }}>
-        <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: 8 }}>
-          Organisation portal
-        </p>
-        <h1 style={{ fontSize: 28, fontWeight: 800, letterSpacing: -0.5 }}>{org.name}</h1>
-      </div>
+    <PortalShell>
+      <div style={{ maxWidth: 960, margin: '0 auto', padding: '48px 24px' }}>
+        <div style={{ marginBottom: 32 }}>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: 8 }}>
+            Organisation portal
+          </p>
+          <h1 style={{ fontSize: 28, fontWeight: 800, letterSpacing: -0.5 }}>{org.name}</h1>
+        </div>
 
-      <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 18, padding: 28 }}>
-        <OrgForm
-          org={org}
-          action={updateOrg}
-          error={error}
-          success={saved === '1'}
-        />
+        <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 18, padding: 28 }}>
+          <OrgForm
+            org={org}
+            action={updateOrg}
+            error={error}
+            success={saved === '1'}
+          />
+        </div>
       </div>
-    </div>
+    </PortalShell>
   )
 }

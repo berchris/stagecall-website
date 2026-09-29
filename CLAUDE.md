@@ -79,6 +79,16 @@ npm run dev        # starts at http://localhost:3000
 
 The `next.config.ts` has `allowedDevOrigins: ['192.168.2.6']` to allow phone testing on the same Wi-Fi.
 
+### Portal (customer `/portal` + staff `/admin`)
+
+The site now also has an authenticated portal (Supabase email-OTP auth, see `middleware.ts` and `lib/supabase/`) that reads/writes the **same Supabase project the StageCall mobile app uses** — `organisations` and `profiles` tables, plus a portal-only `is_staff` flag on `profiles`.
+
+- **`.env.local`** (gitignored, per-machine) points local dev at the **local OrbStack/Docker Supabase stack** that lives in the separate `~/Dev/StageCall` (mobile app) repo — run `supabase start` there first (`supabase status` prints the URL/keys if you need to regenerate this file). This mirrors the local/remote split documented in that repo; see its `Local & Remote Environments` note for the full picture.
+- **`.env.remote`** keeps the production Supabase creds as a reference — not auto-loaded by Next.js, only for manually swapping `.env.local` back to prod if you need to check something against real data.
+- **Vercel** (production) is configured with its own env vars in the Vercel dashboard, pointing at the production Supabase project — it does not read any local `.env*` file.
+- The local test login is `orgadmin@local.events` (org_admin role, `is_staff = true` on the local DB so both the customer portal and the staff `/admin` portal can be tested with it). OTP codes arrive in Mailpit (`http://127.0.0.1:54344`), not a real inbox.
+- Schema changes to `organisations`/`profiles` for the portal should be added as a migration in `~/Dev/StageCall/supabase/migrations/` (not just run ad hoc against production) so the local stack and production stay in sync. `supabase/migration_portal.sql` in this repo is a historical record of what was already hand-applied to production; new portal schema changes shouldn't go there.
+
 ---
 
 ## What's Built

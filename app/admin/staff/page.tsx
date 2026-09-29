@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import StaffManager from './StaffManager'
+import AdminShell from '@/components/portal/AdminShell'
 
 async function requireStaff() {
   const supabase = await createClient()
@@ -60,23 +61,24 @@ export default async function StaffPage({ searchParams }: { searchParams: Promis
   }
 
   return (
-    <div style={{ maxWidth: 800, margin: '0 auto', padding: '48px 24px' }}>
-      <div style={{ marginBottom: 32 }}>
-        <a href="/admin" style={{ fontSize: 13, color: 'var(--text-muted)', textDecoration: 'none' }}>← Organisations</a>
-        <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: 8, marginTop: 16 }}>
-          Staff portal
-        </p>
-        <h1 style={{ fontSize: 28, fontWeight: 800, letterSpacing: -0.5 }}>Staff members</h1>
-        <p style={{ color: 'var(--text-sec)', fontSize: 14, marginTop: 4 }}>{staffList.length} staff account{staffList.length !== 1 ? 's' : ''}</p>
-      </div>
+    <AdminShell>
+      <div style={{ maxWidth: 800, margin: '0 auto', padding: '48px 24px' }}>
+        <div style={{ marginBottom: 32 }}>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: 8 }}>
+            Staff portal
+          </p>
+          <h1 style={{ fontSize: 28, fontWeight: 800, letterSpacing: -0.5 }}>Staff members</h1>
+          <p style={{ color: 'var(--text-sec)', fontSize: 14, marginTop: 4 }}>{staffList.length} staff account{staffList.length !== 1 ? 's' : ''}</p>
+        </div>
 
-      <StaffManager
-        staffList={staffList}
-        currentUserId={currentUser.id}
-        toggleStaff={toggleStaff}
-        error={error}
-        success={success === '1'}
-      />
-    </div>
+        <StaffManager
+          staffList={staffList}
+          currentUserId={currentUser.id}
+          toggleStaff={toggleStaff}
+          error={error}
+          success={success === '1'}
+        />
+      </div>
+    </AdminShell>
   )
 }

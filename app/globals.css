@@ -125,3 +125,21 @@ body {
 .portal-table-row:hover {
   background: var(--surface-r);
 }
+
+/* Portal / admin shell: left sidebar on desktop, top bar on mobile */
+.portal-sidebar     { display: none; }
+.portal-topbar       { display: flex; }
+.portal-topbar-menu  { display: flex; }
+.portal-main         { padding-top: 60px; }
+
+@media (min-width: 768px) {
+  .portal-sidebar    { display: flex; }
+  .portal-topbar      { display: none; }
+  .portal-topbar-menu { display: none; }
+  .portal-main        { padding-top: 0; margin-left: 248px; }
+}
+
+.portal-sidebar-link:hover {
+  background: var(--surface-r);
+  color: var(--text) !important;
+}

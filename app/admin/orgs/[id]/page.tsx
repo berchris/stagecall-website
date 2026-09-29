@@ -1,6 +1,8 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import OrgForm from '@/components/portal/OrgForm'
+import { formatDateLong } from '@/lib/formatDate'
+import AdminShell from '@/components/portal/AdminShell'
 
 async function requireStaff() {
   const supabase = await createClient()
@@ -74,21 +76,23 @@ export default async function AdminOrgPage({
   }
 
   return (
-    <div style={{ maxWidth: 640, margin: '0 auto', padding: '48px 24px' }}>
-      <div style={{ marginBottom: 32 }}>
-        <a href="/admin" style={{ fontSize: 13, color: 'var(--text-muted)', textDecoration: 'none' }}>← Organisations</a>
-        <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: 8, marginTop: 16 }}>
-          Staff portal
-        </p>
-        <h1 style={{ fontSize: 28, fontWeight: 800, letterSpacing: -0.5 }}>{org.name}</h1>
-        <p style={{ color: 'var(--text-muted)', fontSize: 13, marginTop: 6 }}>
-          {count ?? 0} production{count !== 1 ? 's' : ''} · Created {new Date(org.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
-        </p>
-      </div>
+    <AdminShell>
+      <div style={{ maxWidth: 640, margin: '0 auto', padding: '48px 24px' }}>
+        <div style={{ marginBottom: 32 }}>
+          <a href="/admin" style={{ fontSize: 13, color: 'var(--text-muted)', textDecoration: 'none' }}>← Organisations</a>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: 8, marginTop: 16 }}>
+            Staff portal
+          </p>
+          <h1 style={{ fontSize: 28, fontWeight: 800, letterSpacing: -0.5 }}>{org.name}</h1>
+          <p style={{ color: 'var(--text-muted)', fontSize: 13, marginTop: 6 }}>
+            {count ?? 0} production{count !== 1 ? 's' : ''} · Created {formatDateLong(org.created_at)}
+          </p>
+        </div>
 
-      <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 18, padding: 28 }}>
-        <OrgForm org={org} action={updateOrg} error={error} success={saved === '1'} />
+        <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 18, padding: 28 }}>
+          <OrgForm org={org} action={updateOrg} error={error} success={saved === '1'} />
+        </div>
       </div>
-    </div>
+    </AdminShell>
   )
 }

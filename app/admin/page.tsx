@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import AdminOrgsTable from './OrgsTable'
+import AdminShell from '@/components/portal/AdminShell'
 
 export default async function AdminPage() {
   const supabase = await createClient()
@@ -33,26 +34,23 @@ export default async function AdminPage() {
     .order('name')
 
   return (
-    <div style={{ maxWidth: 1100, margin: '0 auto', padding: '48px 24px' }}>
-      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 32, flexWrap: 'wrap', gap: 16 }}>
-        <div>
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: 8 }}>
-            Staff portal
-          </p>
-          <h1 style={{ fontSize: 28, fontWeight: 800, letterSpacing: -0.5 }}>Organisations</h1>
-          <p style={{ color: 'var(--text-sec)', fontSize: 14, marginTop: 4 }}>{orgs?.length ?? 0} total</p>
-        </div>
-        <div style={{ display: 'flex', gap: 12 }}>
-          <Link href="/admin/staff" style={{ padding: '10px 18px', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--text-sec)', fontSize: 14, textDecoration: 'none', fontWeight: 600 }}>
-            Manage staff
-          </Link>
+    <AdminShell>
+      <div style={{ maxWidth: 1100, margin: '0 auto', padding: '48px 24px' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 32, flexWrap: 'wrap', gap: 16 }}>
+          <div>
+            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: 8 }}>
+              Staff portal
+            </p>
+            <h1 style={{ fontSize: 28, fontWeight: 800, letterSpacing: -0.5 }}>Organisations</h1>
+            <p style={{ color: 'var(--text-sec)', fontSize: 14, marginTop: 4 }}>{orgs?.length ?? 0} total</p>
+          </div>
           <Link href="/admin/orgs/new" style={{ padding: '10px 18px', background: 'var(--gold)', borderRadius: 10, color: '#000', fontSize: 14, textDecoration: 'none', fontWeight: 700 }}>
             + New organisation
           </Link>
         </div>
-      </div>
 
-      <AdminOrgsTable orgs={orgs ?? []} />
-    </div>
+        <AdminOrgsTable orgs={orgs ?? []} />
+      </div>
+    </AdminShell>
   )
 }

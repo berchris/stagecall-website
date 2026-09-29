@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { formatDateShort } from '@/lib/formatDate'
 
 type OrgRow = {
   id: string
@@ -59,7 +60,7 @@ export default function AdminOrgsTable({ orgs }: { orgs: OrgRow[] }) {
                 <td style={{ padding: '14px 16px', color: 'var(--text-sec)', fontSize: 14 }}>{org.country ?? '—'}</td>
                 <td style={{ padding: '14px 16px', color: 'var(--text-sec)', fontSize: 14 }}>{org.email ?? '—'}</td>
                 <td style={{ padding: '14px 16px', color: 'var(--text-muted)', fontSize: 13, whiteSpace: 'nowrap' }}>
-                  {new Date(org.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+                  {formatDateShort(org.created_at)}
                 </td>
                 <td style={{ padding: '14px 16px' }}>
                   <Link href={`/admin/orgs/${org.id}`} style={{ fontSize: 13, color: 'var(--gold)', textDecoration: 'none', fontWeight: 600 }}>

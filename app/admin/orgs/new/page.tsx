@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import FormField from '@/components/portal/FormField'
 import SubmitButton from '@/components/portal/SubmitButton'
+import AdminShell from '@/components/portal/AdminShell'
 
 async function requireStaff() {
   const supabase = await createClient()
@@ -72,16 +73,17 @@ export default async function NewOrgPage({ searchParams }: { searchParams: Promi
   const divider = <div style={{ height: 1, background: 'var(--border)', margin: '28px 0' }} />
 
   return (
-    <div style={{ maxWidth: 640, margin: '0 auto', padding: '48px 24px' }}>
-      <div style={{ marginBottom: 32 }}>
-        <a href="/admin" style={{ fontSize: 13, color: 'var(--text-muted)', textDecoration: 'none' }}>← Organisations</a>
-        <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: 8, marginTop: 16 }}>
-          Staff portal
-        </p>
-        <h1 style={{ fontSize: 28, fontWeight: 800, letterSpacing: -0.5 }}>New organisation</h1>
-      </div>
+    <AdminShell>
+      <div style={{ maxWidth: 640, margin: '0 auto', padding: '48px 24px' }}>
+        <div style={{ marginBottom: 32 }}>
+          <a href="/admin" style={{ fontSize: 13, color: 'var(--text-muted)', textDecoration: 'none' }}>← Organisations</a>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '2.5px', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: 8, marginTop: 16 }}>
+            Staff portal
+          </p>
+          <h1 style={{ fontSize: 28, fontWeight: 800, letterSpacing: -0.5 }}>New organisation</h1>
+        </div>
 
-      <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 18, padding: 28 }}>
+        <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 18, padding: 28 }}>
         <form action={createOrg}>
           {/* Org details */}
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: 20 }}>
@@ -123,7 +125,8 @@ export default async function NewOrgPage({ searchParams }: { searchParams: Promi
 
           <SubmitButton label="Create organisation" loadingLabel="Creating…" />
         </form>
+        </div>
       </div>
-    </div>
+    </AdminShell>
   )
 }
