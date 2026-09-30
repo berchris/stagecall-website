@@ -4,6 +4,7 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import FormField from '@/components/portal/FormField'
 import SubmitButton from '@/components/portal/SubmitButton'
 import AdminShell from '@/components/portal/AdminShell'
+import { sendInviteEmail } from '@/lib/sendInviteEmail'
 
 async function requireStaff() {
   const supabase = await createClient()
@@ -48,19 +49,17 @@ async function createOrg(formData: FormData) {
   const adminPhone = (formData.get('admin_phone') as string)?.trim()
 
   if (adminEmail || adminPhone) {
-    await admin.from('invites').insert({
+    const { data: invite } = await admin.from('invites').insert({
       email: adminEmail || null,
       phone: adminPhone || null,
       organisation_id: org.id,
       role: 'org_admin',
       invited_by: user.id,
-    })
+    }).select('id').single()
 
-    if (adminEmail) {
-      await admin.auth.admin.inviteUserByEmail(adminEmail, {
-        redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://stagecall.app'}/portal`,
-      })
-    }
+    // StageCall invite email (replaces Supabase's generic inviteUserByEmail). The admin signs in
+    // with OTP on the app or portal; handle_new_user / accept_pending_invites link the invite.
+    if (adminEmail && invite) await sendInviteEmail(invite.id)
   }
 
   redirect(`/admin/orgs/${org.id}`)

@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import MembersManager from '@/components/portal/MembersManager'
 import PortalShell from '@/components/portal/PortalShell'
+import { sendInviteEmail } from '@/lib/sendInviteEmail'
 
 async function requireOrgAdmin() {
   const supabase = await createClient()
@@ -150,9 +151,11 @@ export default async function PortalMembersPage({
     const { data: existing } = await query.single()
     if (existing) redirect('/portal/members?error=An+invite+already+exists+for+this+contact')
 
-    const { error } = await admin.from('invites').insert(invite)
+    const { data: created, error } = await admin.from('invites').insert(invite).select('id').single()
     if (error) redirect(`/portal/members?error=${encodeURIComponent(error.message)}`)
-    redirect('/portal/members?success=Invite+sent')
+
+    const emailed = isEmail && (await sendInviteEmail(created.id))
+    redirect(emailed ? '/portal/members?success=Invite+sent' : '/portal/members?success=Invite+created')
   }
 
   async function cancelInvite(formData: FormData) {

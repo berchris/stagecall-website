@@ -42,8 +42,12 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl)
   }
 
-  // Already authenticated and hitting a login page → redirect to dashboard
+  // Already authenticated and hitting a login page → redirect to dashboard.
+  // Verify the session first: getSession() only reads the cookie, so a session revoked
+  // server-side (e.g. signed out elsewhere) would bounce login ↔ dashboard forever.
   if (user && isPublic) {
+    const { data: { user: verified } } = await supabase.auth.getUser()
+    if (!verified) return supabaseResponse
     const dashUrl = pathname.startsWith('/admin')
       ? new URL('/admin', request.url)
       : new URL('/portal/settings', request.url)
