@@ -1,7 +1,7 @@
 import Nav from '@/components/Nav'
 import PhoneMockup from '@/components/PhoneMockup'
 import FadeIn from '@/components/FadeIn'
-import EarlyAccessForm from '@/components/EarlyAccessForm'
+import EarlyAccessCta from '@/components/EarlyAccessCta'
 import { Bell, BellRing, CheckCircle2, LayoutList, Eye, Pencil, History, Clapperboard, Timer, Check } from 'lucide-react'
 
 const S = {
@@ -58,7 +58,7 @@ export default function Home() {
 
             <FadeIn delay={0.3}>
               <div className="hero-buttons">
-                <a href="#early-access" style={{ background: 'var(--gold)', color: '#0B0B16', padding: '14px 32px', borderRadius: 12, fontSize: 16, fontWeight: 700, textDecoration: 'none' }}>Get early access</a>
+                <a href="#early-access" style={{ background: 'var(--gold)', color: '#0B0B16', padding: '14px 32px', borderRadius: 12, fontSize: 16, fontWeight: 700, textDecoration: 'none' }}>Save my seat</a>
                 <a href="#how-it-works" style={{ background: 'transparent', color: 'var(--text-sec)', padding: '14px 32px', borderRadius: 12, fontSize: 16, fontWeight: 700, textDecoration: 'none', border: '1px solid var(--border)' }}>See how it works</a>
               </div>
             </FadeIn>
@@ -138,26 +138,7 @@ export default function Home() {
 
       {/* EARLY ACCESS */}
       <section id="early-access" className="cta-band">
-        <FadeIn>
-          <div className="cta-panel">
-            <div className="cta-glow" />
-            <div style={{ position: 'relative' }}>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(245,185,66,0.12)', border: '1px solid rgba(245,185,66,0.3)', borderRadius: 100, padding: '6px 16px', fontSize: 12, fontWeight: 700, color: 'var(--gold)', letterSpacing: 1, textTransform: 'uppercase', marginBottom: 28 }}>
-                <BellRing size={14} strokeWidth={2.5} /> Early access
-              </div>
-              <h2 style={{ fontSize: 'clamp(36px, 6vw, 60px)', fontWeight: 900, letterSpacing: -1.5, lineHeight: 1.05, marginBottom: 20 }}>
-                Be first <span style={{ color: 'var(--gold)' }}>on stage.</span>
-              </h2>
-              <p style={{ color: 'var(--text-sec)', fontSize: 'clamp(16px, 2vw, 19px)', lineHeight: 1.7, maxWidth: 520, margin: '0 auto 40px' }}>
-                StageCall is in active development. Join the early access list and we&apos;ll reach out when it&apos;s ready.
-              </p>
-              <div style={{ maxWidth: 540, margin: '0 auto' }}>
-                <EarlyAccessForm />
-              </div>
-              <p style={{ fontSize: 13, color: 'var(--text-sec)', marginTop: 18 }}>No spam. Just a heads-up when we launch.</p>
-            </div>
-          </div>
-        </FadeIn>
+        <EarlyAccessCta />
       </section>
 
       {/* FOOTER */}

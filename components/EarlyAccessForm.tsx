@@ -90,7 +90,7 @@ export default function EarlyAccessForm() {
           flexShrink: 0,
         }}
       >
-        {loading ? 'Saving…' : 'Get early access'}
+        {loading ? 'Saving…' : 'Notify me'}
       </button>
     </form>
     {error && (
