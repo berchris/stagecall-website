@@ -1,0 +1,16 @@
+<Style backgroundColor="#0B0B16" backgroundXPadding="0" backgroundYPadding="24" bodyColor="#0B0B16" bodyXPadding="20" bodyYPadding="24" bodyFontFamily="Inter" bodyFontCategory="ui-sans-serif" borderWidth="0" borderRadius="0" buttonBodyColor="#1A1A28" buttonBodyXPadding="16" buttonBodyYPadding="14" buttonBorderColor="#1C1C2E" buttonBorderWidth="1" buttonBorderRadius="14" buttonTextColor="#FFFFFF" buttonTextFontSize="14" dividerColor="#1C1C2E" dividerBorderWidth="1" textBaseColor="#FFFFFF" textBaseFontSize="15" textBaseLineHeight="155" textBaseLetterSpacing="0" textLinkColor="#F5B942" heading1Color="#FFFFFF" heading1FontSize="26" heading1LineHeight="120" heading1LetterSpacing="0" heading2Color="#8888AA" heading2FontSize="12" heading2LineHeight="150" heading2LetterSpacing="2" heading3Color="#F5B942" heading3FontSize="22" heading3LineHeight="125" heading3LetterSpacing="6" />
+<H3 align="center" paddingBottom="24">STAGECALL</H3>
+<Section blockColor="#13131E" blockBorderRadius="22" paddingTop="32" paddingRight="24" paddingBottom="28" paddingLeft="24">
+  <H2 paddingBottom="10">YOU'RE ON THE LIST</H2>
+  <H1 paddingBottom="12">Welcome to StageCall</H1>
+  <Paragraph><Text textColor="#8888AA">Thanks for signing up. You'll be among the first to hear when StageCall opens for early access.</Text></Paragraph>
+</Section>
+<H2 paddingTop="32" paddingBottom="12">WHAT STAGECALL DOES</H2>
+<Paragraph paddingBottom="12"><Text textColor="#F5B942">Calls that fire on time.</Text> <Text textColor="#8888AA">Set "Half hour", "Overture call" and "Places" once. StageCall alerts the crew at the right moment.</Text></Paragraph>
+<Paragraph paddingBottom="12"><Text textColor="#F5B942">Only your team's alerts.</Text> <Text textColor="#8888AA">Sound, Lighting, Wardrobe and Stage Management each get their own calls, nothing more.</Text></Paragraph>
+<Paragraph paddingBottom="12"><Text textColor="#F5B942">One tap clears the call.</Text> <Text textColor="#8888AA">Any team member acknowledges for the whole team, and managers can edit calls live.</Text></Paragraph>
+<H2 paddingTop="20" paddingBottom="12">WHAT HAPPENS NEXT</H2>
+<Paragraph><Text textColor="#8888AA">StageCall is in active development. We'll email you when early access opens and when there is news worth sharing. No spam.</Text></Paragraph>
+<Paragraph paddingTop="20">The StageCall team</Paragraph>
+<Divider paddingTop="28" paddingBottom="8" color="#1C1C2E" />
+<Paragraph fontSize="12" align="center"><Text textColor="#4A4A6A">You received this because you signed up at stagecall-app.nl. Not you? You can safely ignore this email.</Text></Paragraph>
