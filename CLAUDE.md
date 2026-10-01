@@ -100,7 +100,10 @@ middleware.ts         ← Home page language redirect + portal/admin auth
 - Signing up adds the contact to the Loops list "In the loop" with `language` = `nl` or `en` (`app/api/subscribe/route.ts`).
 - The Loops workflow "Welcome email (NL + EN)" (`cmuphfnbq1lvw0j1rtbcv10ag`) fires when a contact is added to that list and branches on `language`: `nl` gets the Dutch email, anything else gets English.
 - Email sources live in `emails/welcome/welcome.{nl,en}.lmx`, in the same dark style as the app's invite and sign-in emails (those live in `~/Dev/StageCall/emails/`). Push changes with `scripts/push-emails.sh`; the workflow must be paused in the Loops dashboard while pushing.
-- The Loops CLI cannot start, pause or resume a workflow; that is done in the dashboard.
+- The Loops CLI cannot start, pause or resume a workflow, and cannot send a campaign; those are done in the Loops dashboard. The CLI can build workflows, emails and campaign drafts.
+- State as of 2026-10-01: "Welcome email (NL + EN)" is live. The old workflow "Welcome - Be the first on stage" (plain English email) is paused and must stay paused; while paused it queues new contacts, so resuming it would send them the old email. Stop or delete it in the dashboard to be rid of that risk.
+- On 2026-10-01 everyone already on the list was sent the new welcome email once, via two campaigns ("Welcome email to existing contacts (EN)" and "(NL)"). Don't resend it to the whole list.
+- The `language` contact property was created on 2026-10-01. Contacts from before that date have no language and are treated as English.
 - A contact that already exists gets no welcome email (Loops answers 409 and nothing is added to the list). Test with a fresh address or a `+alias`.
 - Local dev has no `LOOPS_API_KEY`, so the form fails locally by design; test sign-ups on the live site.
 
