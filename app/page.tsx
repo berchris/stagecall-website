@@ -27,48 +27,6 @@ const STEPS = [
   { num: '03', Icon: BellRing,     title: 'Run the show',            body: "Crew get alerts at the right moment. One acknowledgment clears the call for the entire team. No chasing, no repeating yourself." },
 ]
 
-const PLANS = [
-  {
-    name: 'Free', price: '€0', period: '/mo', featured: false,
-    desc: 'Great for community theater and first-time users.',
-    features: [
-      { yes: true,  label: '1 active production' },
-      { yes: true,  label: 'Up to 3 teams' },
-      { yes: true,  label: 'Up to 15 calls' },
-      { yes: true,  label: 'Unlimited crew members' },
-      { yes: false, label: 'Push notifications' },
-      { yes: false, label: 'Invite flow' },
-    ],
-    cta: 'Get started free', ctaStyle: 'ghost',
-  },
-  {
-    name: 'Pro', price: '€29', period: '/mo', featured: true,
-    desc: 'Independent producers and regional theater companies.',
-    features: [
-      { yes: true, label: '5 concurrent productions' },
-      { yes: true, label: 'Unlimited teams & calls' },
-      { yes: true, label: 'Unlimited crew members' },
-      { yes: true, label: 'Push notifications' },
-      { yes: true, label: 'Email & phone invite flow' },
-      { yes: true, label: 'Full ack audit log' },
-    ],
-    cta: 'Get early access', ctaStyle: 'gold',
-  },
-  {
-    name: 'Company', price: '€99', period: '/mo', featured: false,
-    desc: 'Production companies and festivals running multiple shows.',
-    features: [
-      { yes: true, label: 'Unlimited productions' },
-      { yes: true, label: 'Everything in Pro' },
-      { yes: true, label: 'Multi-night productions' },
-      { yes: true, label: 'Broadcast messages to teams' },
-      { yes: true, label: 'Team Lead role' },
-      { yes: true, label: 'White-label option' },
-    ],
-    cta: 'Get early access', ctaStyle: 'ghost',
-  },
-]
-
 export default function Home() {
   return (
     <>
@@ -177,47 +135,6 @@ export default function Home() {
           ))}
         </div>
       </section>
-
-      {/* PRICING */}
-      <div id="pricing" style={{ background: 'var(--surface)', padding: '100px 0' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
-          <FadeIn><p style={S.sectionLabel}>Pricing</p></FadeIn>
-          <FadeIn delay={0.1}><h2 style={S.h2}>Start free. Scale when you&apos;re ready.</h2></FadeIn>
-          <FadeIn delay={0.2}><p style={S.sub}>Crew access is always free. Only the production manager pays — and only when the show demands it.</p></FadeIn>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20, alignItems: 'start' }}>
-            {PLANS.map((plan, i) => (
-              <FadeIn key={plan.name} delay={i * 0.1}>
-                <div style={{ background: plan.featured ? 'linear-gradient(160deg, rgba(245,185,66,0.07), var(--bg))' : 'var(--bg)', border: `1px solid ${plan.featured ? 'var(--gold)' : 'var(--border)'}`, borderRadius: 20, padding: '32px 28px', position: 'relative' }}>
-                  {plan.featured && (
-                    <div style={{ position: 'absolute', top: -13, left: '50%', transform: 'translateX(-50%)', background: 'var(--gold)', color: '#0B0B16', fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: 'uppercase', padding: '4px 14px', borderRadius: 100, whiteSpace: 'nowrap' }}>Most popular</div>
-                  )}
-                  <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--text-sec)', marginBottom: 12 }}>{plan.name}</div>
-                  <div style={{ marginBottom: 4 }}>
-                    <span style={{ fontSize: 44, fontWeight: 900, letterSpacing: -2 }}>{plan.price}</span>
-                    <span style={{ fontSize: 16, fontWeight: 600, color: 'var(--text-sec)' }}>{plan.period}</span>
-                  </div>
-                  <div style={{ fontSize: 13, color: 'var(--text-sec)', marginBottom: 24, minHeight: 36 }}>{plan.desc}</div>
-                  <div style={{ height: 1, background: 'var(--border)', marginBottom: 24 }} />
-                  <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 28 }}>
-                    {plan.features.map((f) => (
-                      <li key={f.label} style={{ display: 'flex', gap: 10, fontSize: 14, color: f.yes ? 'var(--text-sec)' : 'var(--text-muted)', alignItems: 'center' }}>
-                        {f.yes
-                          ? <Check size={14} strokeWidth={2.5} color="var(--teal)" style={{ flexShrink: 0 }} />
-                          : <span style={{ width: 14, textAlign: 'center', flexShrink: 0, color: 'var(--text-muted)' }}>–</span>
-                        }
-                        {f.label}
-                      </li>
-                    ))}
-                  </ul>
-                  <a href="#early-access" style={{ display: 'block', textAlign: 'center', padding: '13px 0', borderRadius: 12, fontSize: 15, fontWeight: 700, textDecoration: 'none', background: plan.ctaStyle === 'gold' ? 'var(--gold)' : 'transparent', color: plan.ctaStyle === 'gold' ? '#0B0B16' : 'var(--text-sec)', border: plan.ctaStyle === 'ghost' ? '1px solid var(--border)' : 'none' }}>
-                    {plan.cta}
-                  </a>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-      </div>
 
       {/* EARLY ACCESS */}
       <section id="early-access" style={{ padding: '100px 24px', textAlign: 'center' }}>
