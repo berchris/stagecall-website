@@ -17,7 +17,7 @@ export default function EarlyAccessCta({ lang }: { lang: Locale }) {
         <div className="reveal cta-badge" style={{ ...d(0.20), display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(245,185,66,0.12)', border: '1px solid rgba(245,185,66,0.3)', borderRadius: 100, padding: '6px 16px', fontSize: 12, fontWeight: 700, color: 'var(--gold)', letterSpacing: 1, textTransform: 'uppercase', marginBottom: 28 }}>
           <BellRing size={14} strokeWidth={2.5} /> {t.cta.badge}
         </div>
-        <h2 className="reveal" style={{ ...d(0.29), fontSize: 'clamp(36px, 6vw, 60px)', fontWeight: 900, letterSpacing: -1.5, lineHeight: 1.05, marginBottom: 20 }}>
+        <h2 className="reveal cta-title" style={{ ...d(0.29), fontSize: 'clamp(36px, 6vw, 60px)', fontWeight: 900, letterSpacing: -1.5, lineHeight: 1.05, marginBottom: 20 }}>
           {t.cta.titleStart}<span style={{ color: 'var(--gold)' }}>{t.cta.titleAccent}</span>
         </h2>
         <p className="reveal cta-lead" style={{ ...d(0.38), color: 'var(--text-sec)', fontSize: 'clamp(16px, 2vw, 19px)', lineHeight: 1.7, maxWidth: 520, margin: '0 auto 40px' }}>

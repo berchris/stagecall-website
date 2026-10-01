@@ -148,7 +148,7 @@ export default function SectionScroller() {
     function onTouchStart(e: TouchEvent) {
       if (!active() || e.touches.length !== 1) { touchStart = null; return }
       const t = e.target as HTMLElement | null
-      if (t?.closest?.('nav, .nav-mobile')) { touchStart = null; return }
+      if (t?.closest?.('nav, .nav-mobile, .float-top')) { touchStart = null; return }
       touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY }
       touchAxis = null
     }

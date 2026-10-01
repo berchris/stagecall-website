@@ -71,7 +71,8 @@ lib/
 
 components/
   LandingPage.tsx     ← The whole landing page (Hero, How it works, Features, Roles, Early access + footer). Server component, takes `lang`.
-  Nav.tsx             ← Fixed nav with scroll blur, hamburger menu on mobile, NL | EN switcher (landing page only). Also used by the portal login/verify pages.
+  FloatingNav.tsx     ← Landing page nav: floating glass pill at the bottom, wordmark + NL | EN switch at the top
+  Nav.tsx             ← Older top-bar nav, now only used by the portal login/verify pages
   SectionScroller.tsx ← Section-by-section scrolling + the `.is-shown` flag that triggers entrances
   CardRow.tsx         ← Card grid on desktop; sideways swipeable row with dots on phones
   FadeIn.tsx          ← `FadeIn` / `StaggerItem`: wrappers that add the `.reveal` entrance classes
@@ -125,13 +126,12 @@ Every section is a `.snap-section` that fills the screen, and `SectionScroller.t
 
 ---
 
-## Responsive Nav
+## Navigation
 
-The nav uses `.nav-desktop` and `.nav-mobile` CSS classes defined in `globals.css`:
-- Below 640px: `.nav-desktop` is hidden, `.nav-mobile` is shown (hamburger + dropdown)
-- Above 640px: `.nav-desktop` is shown, `.nav-mobile` is hidden
-
-Do NOT use Tailwind responsive prefixes for nav visibility — they don't work reliably here.
+- **Landing page:** `components/FloatingNav.tsx`. A glass pill floating at the bottom of the screen (desktop and phone) with one entry per section plus the gold sign-up button; a highlight slides to the section in view. On phones the entries are icons and the active one expands to show a short label. The wordmark and the NL | EN switch sit at the top with no bar.
+- Every section reserves room for it through the CSS variables `--nav-top` and `--nav-safe` (in `:root`, smaller on phones and short windows). Use those variables, never fixed paddings, when adding or changing a section.
+- Nav links are plain `#id` anchors; `SectionScroller` turns them into glides. Section ids: `top`, `how-it-works`, `features`, `roles`, `early-access`.
+- **Portal login/verify pages:** still use the older top bar `components/Nav.tsx` with `.nav-desktop` / `.nav-mobile` classes (below 640px the hamburger version shows). Do NOT use Tailwind responsive prefixes for nav visibility.
 
 ---
 
@@ -144,6 +144,7 @@ npm run dev        # starts at http://localhost:3000 (Dutch) and /en (English)
 - **Phone testing:** open `http://<laptop-ip>:3000` on the same Wi-Fi. The laptop's address must be listed in `allowedDevOrigins` in `next.config.ts` (currently `192.168.2.6` and `192.168.2.8`), otherwise the dev server refuses to serve the scripts and the page shows empty sections. The address changes; check it with `ipconfig getifaddr en0`.
 - **Don't run `next build`, a second dev server, or `git stash` in this folder while the dev server is running.** The dev server then keeps serving a stale `globals.css`. To check a production build, copy the project elsewhere and build there. If styles look stale, restart `npm run dev`.
 - A "Load failed" overlay on portal pages means the local Supabase stack isn't running (see below).
+- iPhone Safari can keep an old dev stylesheet (unstyled menu as plain text at the top, empty sections). A private tab shows the real state.
 
 ### Portal (customer `/portal` + staff `/admin`)
 
@@ -161,7 +162,7 @@ The site now also has an authenticated portal (Supabase email-OTP auth, see `mid
 
 - Landing page in Dutch and English: Hero, How it Works (3 steps), Features (6 cards), Roles (Manager/Crew), Early Access sign-up with footer
 - Full-screen sections with section-by-section scrolling on desktop and phones
-- Responsive nav with mobile hamburger menu and language switcher
+- Floating bottom navigation with section tracking, and a language switcher
 - Animated phone mockup with live countdown timer
 - Early access email form wired to Loops
 - Customer portal and staff admin (Supabase auth)

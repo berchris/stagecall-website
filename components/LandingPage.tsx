@@ -1,4 +1,4 @@
-import Nav from '@/components/Nav'
+import FloatingNav from '@/components/FloatingNav'
 import PhoneMockup from '@/components/PhoneMockup'
 import FadeIn, { StaggerItem } from '@/components/FadeIn'
 import CardRow from '@/components/CardRow'
@@ -31,11 +31,11 @@ export default function LandingPage({ lang }: { lang: Locale }) {
 
   return (
     <>
-      <Nav lang={lang} />
+      <FloatingNav lang={lang} />
       <SectionScroller />
 
       {/* HERO */}
-      <section className="snap-section snap-hero">
+      <section id="top" className="snap-section snap-hero">
         <div style={{ position: 'absolute', top: -200, left: '50%', transform: 'translateX(-50%)', width: 700, height: 700, background: 'radial-gradient(circle, rgba(245,185,66,0.07) 0%, transparent 70%)', pointerEvents: 'none' }} />
 
         <div className="hero-inner">
