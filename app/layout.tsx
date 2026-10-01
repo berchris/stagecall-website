@@ -8,6 +8,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.stagecall-app.nl'),
   title: 'StageCall — Every call, on time. Every time.',
   description:
     'StageCall keeps your production on schedule. Countdown timers and instant alerts for every crew team, delivered the moment they need them.',

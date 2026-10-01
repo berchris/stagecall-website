@@ -311,6 +311,7 @@ html.snap-touch .snap-section { min-height: 100dvh; }
 /* Phones: tighter sections so each fits one screen; the hero splits into two stops (text, then the phone mockup) */
 @media (max-width: 639px) {
   .snap-section { padding: 76px 24px 20px; }
+  .section-title { font-size: 27px !important; }
   .section-sub  { margin-bottom: 24px !important; }
   .reveal-card > div { padding: 22px !important; }
   .card-dots { margin-top: 14px; }
@@ -352,8 +353,10 @@ html.snap-touch .snap-section { min-height: 100dvh; }
 }
 
 /* Short phones: drop the section intro line so the cards still fit */
-@media (max-width: 639px) and (max-device-height: 700px) {
+@media (max-width: 639px) and (max-height: 700px) {
   .section-sub { display: none; }
+  .cta-panel   { padding: 28px 18px; }
+  .cta-lead    { margin-bottom: 22px !important; }
 }
 
 /* Section entrances: content is hidden until its section gets `.is-shown`, then eases in with a per-item delay (--d).
@@ -434,5 +437,4 @@ html.snap-touch .snap-section { min-height: 100dvh; }
   .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
   .card-row { transform: none !important; transition: none !important; }
 }
-
 

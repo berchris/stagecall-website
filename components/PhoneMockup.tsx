@@ -1,22 +1,23 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import type { Dictionary } from '@/lib/i18n'
 
 const BASE_CALLS = [
-  { name: 'Overture call',     team: 'All Teams',        minsLeft: 135, color: '#F5B942', glow: true  },
-  { name: 'Orchestra Warm-Up', team: 'Sound · Lighting',  minsLeft: 90,  color: '#00D4AA', glow: false },
-  { name: 'Costume check',     team: 'Wardrobe',          minsLeft: 60,  color: '#A78BFA', glow: false },
-  { name: 'Load-in complete',  team: 'Stage Manager',     minsLeft: -10, color: '#4A4A6A', glow: false },
+  { name: 'Overture call',     team: 'allTeams',         minsLeft: 135, color: '#F5B942', glow: true  },
+  { name: 'Orchestra Warm-Up', team: 'soundLighting',     minsLeft: 90,  color: '#00D4AA', glow: false },
+  { name: 'Costume check',     team: 'wardrobe',          minsLeft: 60,  color: '#A78BFA', glow: false },
+  { name: 'Load-in complete',  team: 'stageManager',     minsLeft: -10, color: '#4A4A6A', glow: false },
 ]
 
-const NEW_CALL       = { name: 'Places', team: 'All Teams', minsLeft: 15, color: '#FF4757', glow: true }
+const NEW_CALL       = { name: 'Places', team: 'allTeams', minsLeft: 15, color: '#FF4757', glow: true }
 const NEW_CALL_LABEL = 'Places'
 
 // Height of the create card + its bottom margin — must match the rendered card
 const CREATE_CARD_H = 112
 
-function formatMins(mins: number) {
-  if (mins < 0) return 'passed'
+function formatMins(mins: number, passed: string) {
+  if (mins < 0) return passed
   if (mins >= 60) {
     const h = Math.floor(mins / 60)
     const m = mins % 60
@@ -37,7 +38,7 @@ type Phase = 'idle' | 'typing' | 'added'
 const PHASE_DURATION: Record<Phase, number> = { idle: 5000, typing: 2800, added: 4500 }
 const NEXT_PHASE:     Record<Phase, Phase>  = { idle: 'typing', typing: 'added', added: 'idle' }
 
-export default function PhoneMockup() {
+export default function PhoneMockup({ t }: { t: Dictionary['mockup'] }) {
   const [seconds, setSeconds]             = useState(2 * 3600 + 15 * 60)
   const [placesSeconds, setPlacesSeconds] = useState(14 * 60 + 58)
   const [phase, setPhase]                 = useState<Phase>('idle')
@@ -132,7 +133,7 @@ export default function PhoneMockup() {
               pointerEvents: 'none',
             }}>
               <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: 2, color: '#00D4AA', textTransform: 'uppercase', marginBottom: 8 }}>
-                {typingDone ? '✓ Call added' : '+ New Call'}
+                {typingDone ? t.callAdded : t.newCall}
               </div>
               <div style={{
                 fontSize: 13, fontWeight: 700, color: 'var(--text)',
@@ -143,8 +144,8 @@ export default function PhoneMockup() {
                 {!typingDone && <span className="phone-cursor" />}
               </div>
               <div style={{ display: 'flex', gap: 6 }}>
-                <div style={{ fontSize: 10, background: 'var(--surface-r)', borderRadius: 6, padding: '4px 8px', color: 'var(--text-sec)' }}>All Teams</div>
-                <div style={{ fontSize: 10, background: 'var(--surface-r)', borderRadius: 6, padding: '4px 8px', color: 'var(--text-sec)' }}>15 mins</div>
+                <div style={{ fontSize: 10, background: 'var(--surface-r)', borderRadius: 6, padding: '4px 8px', color: 'var(--text-sec)' }}>{t.allTeams}</div>
+                <div style={{ fontSize: 10, background: 'var(--surface-r)', borderRadius: 6, padding: '4px 8px', color: 'var(--text-sec)' }}>{t.mins}</div>
               </div>
             </div>
 
@@ -158,7 +159,7 @@ export default function PhoneMockup() {
               transition: 'background 0.45s ease, border-color 0.45s ease',
             }}>
               <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: 2, color: heroColor, textTransform: 'uppercase', marginBottom: 4, transition: 'color 0.45s ease' }}>
-                ⚡ Next Call
+                ⚡ {t.nextCall}
               </div>
               <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--text)', marginBottom: 8 }}>
                 {heroName}
@@ -191,10 +192,10 @@ export default function PhoneMockup() {
                 }} />
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--text)' }}>{call.name}</div>
-                  <div style={{ fontSize: 10, color: 'var(--text-sec)' }}>{call.team}</div>
+                  <div style={{ fontSize: 10, color: 'var(--text-sec)' }}>{t[call.team as keyof typeof t]}</div>
                 </div>
                 <div style={{ fontSize: 11, fontWeight: 700, color: call.color, fontVariantNumeric: 'tabular-nums' }}>
-                  {formatMins(call.minsLeft)}
+                  {formatMins(call.minsLeft, t.passed)}
                 </div>
               </div>
             ))}

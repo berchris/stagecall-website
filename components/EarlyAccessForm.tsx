@@ -1,8 +1,9 @@
 'use client'
 
 import { useState } from 'react'
+import type { Dictionary, Locale } from '@/lib/i18n'
 
-export default function EarlyAccessForm() {
+export default function EarlyAccessForm({ lang, t }: { lang: Locale; t: Dictionary['form'] }) {
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -18,12 +19,12 @@ export default function EarlyAccessForm() {
       const res = await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, lang }),
       })
       if (!res.ok) throw new Error('failed')
       setSubmitted(true)
     } catch {
-      setError('Something went wrong. Please try again.')
+      setError(t.error)
     } finally {
       setLoading(false)
     }
@@ -39,9 +40,9 @@ export default function EarlyAccessForm() {
         textAlign: 'center',
       }}>
         <div style={{ fontSize: 24, marginBottom: 8 }}>🎭</div>
-        <div style={{ fontWeight: 700, color: 'var(--teal)', fontSize: 16 }}>You&apos;re on the list!</div>
+        <div style={{ fontWeight: 700, color: 'var(--teal)', fontSize: 16 }}>{t.successTitle}</div>
         <div style={{ color: 'var(--text-sec)', fontSize: 14, marginTop: 4 }}>
-          We&apos;ll reach out when early access opens.
+          {t.successBody}
         </div>
       </div>
     )
@@ -53,7 +54,7 @@ export default function EarlyAccessForm() {
       <input
         type="email"
         required
-        placeholder="your@email.com"
+        placeholder={t.placeholder}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         style={{
@@ -90,7 +91,7 @@ export default function EarlyAccessForm() {
           flexShrink: 0,
         }}
       >
-        {loading ? 'Saving…' : 'Notify me'}
+        {loading ? t.loading : t.submit}
       </button>
     </form>
     {error && (

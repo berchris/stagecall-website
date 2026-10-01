@@ -4,8 +4,32 @@ import type { NextRequest } from 'next/server'
 
 const PUBLIC_PATHS = ['/portal/login', '/portal/verify', '/admin/login', '/admin/verify']
 
+// Home page language: Dutch lives at `/`, English at `/en`. A visitor's explicit choice (cookie set by the
+// nav switcher) wins; otherwise a first-time visitor whose device prefers another language than Dutch is
+// sent to English. Requests without a language header (crawlers) always get the Dutch page.
+function homeLanguageRedirect(request: NextRequest) {
+  const choice = request.cookies.get('lang')?.value
+  let english = choice === 'en'
+  if (choice !== 'en' && choice !== 'nl') {
+    const header = request.headers.get('accept-language')
+    if (header) {
+      const prefs = header.split(',')
+        .map((part) => {
+          const [tag, q] = part.trim().split(';q=')
+          return { lang: tag.toLowerCase().split('-')[0], q: q === undefined ? 1 : Number(q) || 0 }
+        })
+        .sort((a, b) => b.q - a.q)
+      const first = prefs.find((p) => p.lang === 'nl' || p.lang === 'en')
+      english = first ? first.lang === 'en' : true
+    }
+  }
+  return english ? NextResponse.redirect(new URL('/en', request.url)) : NextResponse.next()
+}
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
+
+  if (pathname === '/') return homeLanguageRedirect(request)
 
   // Always refresh the session cookie (required by @supabase/ssr)
   let supabaseResponse = NextResponse.next({ request })
@@ -58,5 +82,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/portal/:path*', '/admin/:path*'],
+  matcher: ['/', '/portal/:path*', '/admin/:path*'],
 }
