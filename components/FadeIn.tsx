@@ -1,8 +1,8 @@
-'use client'
+import { CSSProperties, ReactNode } from 'react'
 
-import { motion } from 'framer-motion'
-import { ReactNode } from 'react'
-
+// Entrance animation for content inside a `.snap-section`. The section gets `.is-shown` from
+// SectionScroller when it arrives, and the CSS transition (globals.css) runs off the main thread,
+// so it stays smooth while the page is gliding. Replays each time the section comes back.
 export default function FadeIn({
   children,
   delay = 0,
@@ -13,14 +13,19 @@ export default function FadeIn({
   className?: string
 }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.5, delay, ease: 'easeOut' }}
-      className={className}
-    >
+    <div className={className ? `reveal ${className}` : 'reveal'} style={{ '--d': `${delay}s` } as CSSProperties}>
       {children}
-    </motion.div>
+    </div>
+  )
+}
+
+// A card inside CardRow: same entrance, staggered by its position in the row (see `.card-slide` in globals.css).
+// The outer div is the slide the sideways scroller snaps to; only the inner one is transformed, so the
+// entrance never moves a snap position.
+export function StaggerItem({ children }: { children: ReactNode }) {
+  return (
+    <div className="card-slide">
+      <div className="reveal reveal-card">{children}</div>
+    </div>
   )
 }
