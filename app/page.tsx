@@ -137,17 +137,25 @@ export default function Home() {
       </section>
 
       {/* EARLY ACCESS */}
-      <section id="early-access" style={{ padding: '100px 24px', textAlign: 'center' }}>
+      <section id="early-access" className="cta-band">
         <FadeIn>
-          <div style={{ maxWidth: 580, margin: '0 auto', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 24, padding: '60px 48px', position: 'relative', overflow: 'hidden' }}>
-            <div style={{ position: 'absolute', bottom: -100, right: -100, width: 300, height: 300, background: 'radial-gradient(circle, rgba(0,212,170,0.07), transparent 70%)', pointerEvents: 'none' }} />
-            <p style={{ ...S.sectionLabel, marginBottom: 16 }}>Early access</p>
-            <h2 style={{ fontSize: 36, fontWeight: 800, letterSpacing: -1, marginBottom: 12 }}>Be first on stage.</h2>
-            <p style={{ color: 'var(--text-sec)', fontSize: 16, marginBottom: 32 }}>
-              StageCall is in active development. Join the early access list and we&apos;ll reach out when it&apos;s ready.
-            </p>
-            <EarlyAccessForm />
-            <p style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 14 }}>No spam. Just a heads-up when we launch.</p>
+          <div className="cta-panel">
+            <div className="cta-glow" />
+            <div style={{ position: 'relative' }}>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(245,185,66,0.12)', border: '1px solid rgba(245,185,66,0.3)', borderRadius: 100, padding: '6px 16px', fontSize: 12, fontWeight: 700, color: 'var(--gold)', letterSpacing: 1, textTransform: 'uppercase', marginBottom: 28 }}>
+                <BellRing size={14} strokeWidth={2.5} /> Early access
+              </div>
+              <h2 style={{ fontSize: 'clamp(36px, 6vw, 60px)', fontWeight: 900, letterSpacing: -1.5, lineHeight: 1.05, marginBottom: 20 }}>
+                Be first <span style={{ color: 'var(--gold)' }}>on stage.</span>
+              </h2>
+              <p style={{ color: 'var(--text-sec)', fontSize: 'clamp(16px, 2vw, 19px)', lineHeight: 1.7, maxWidth: 520, margin: '0 auto 40px' }}>
+                StageCall is in active development. Join the early access list and we&apos;ll reach out when it&apos;s ready.
+              </p>
+              <div style={{ maxWidth: 540, margin: '0 auto' }}>
+                <EarlyAccessForm />
+              </div>
+              <p style={{ fontSize: 13, color: 'var(--text-sec)', marginTop: 18 }}>No spam. Just a heads-up when we launch.</p>
+            </div>
           </div>
         </FadeIn>
       </section>

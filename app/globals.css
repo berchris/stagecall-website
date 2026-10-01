@@ -143,3 +143,39 @@ body {
   background: var(--surface-r);
   color: var(--text) !important;
 }
+
+/* Early access CTA: lighter full-width band with a gold-tinted panel */
+.cta-band {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 72px 16px;
+  text-align: center;
+}
+
+.cta-panel {
+  position: relative;
+  overflow: hidden;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 56px 24px;
+  border-radius: 28px;
+  border: 1px solid rgba(245, 185, 66, 0.45);
+  background: linear-gradient(170deg, #3A2E18 0%, #241F22 38%, #1C1C2C 100%);
+  box-shadow: 0 0 0 1px rgba(245, 185, 66, 0.06), 0 30px 90px rgba(245, 185, 66, 0.10);
+}
+
+.cta-glow {
+  position: absolute;
+  top: -260px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 760px;
+  height: 520px;
+  background: radial-gradient(closest-side, rgba(245, 185, 66, 0.28), transparent);
+  pointer-events: none;
+}
+
+@media (min-width: 640px) {
+  .cta-band  { padding: 110px 24px; }
+  .cta-panel { padding: 96px 48px; }
+}

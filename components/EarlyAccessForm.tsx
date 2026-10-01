@@ -49,7 +49,7 @@ export default function EarlyAccessForm() {
 
   return (
     <div>
-    <form onSubmit={handleSubmit} style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+    <form onSubmit={handleSubmit} style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
       <input
         type="email"
         required
@@ -57,29 +57,30 @@ export default function EarlyAccessForm() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         style={{
-          flex: 1,
-          minWidth: 200,
-          background: 'var(--surface-r)',
-          border: '1px solid var(--border)',
-          borderRadius: 12,
-          padding: '13px 16px',
-          fontSize: 15,
+          flex: '999 1 220px',
+          minWidth: 220,
+          background: 'var(--bg)',
+          border: '1px solid #2E2E48',
+          borderRadius: 14,
+          padding: '17px 20px',
+          fontSize: 16,
           color: 'var(--text)',
           fontFamily: 'inherit',
           outline: 'none',
         }}
-        onFocus={(e) => (e.target.style.borderColor = 'var(--teal)')}
-        onBlur={(e) => (e.target.style.borderColor = 'var(--border)')}
+        onFocus={(e) => (e.target.style.borderColor = 'var(--gold)')}
+        onBlur={(e) => (e.target.style.borderColor = '#2E2E48')}
       />
       <button
         type="submit"
         disabled={loading}
         style={{
-          background: 'var(--teal)',
+          background: 'var(--gold)',
           color: '#0B0B16',
-          padding: '13px 28px',
-          borderRadius: 12,
-          fontSize: 15,
+          padding: '17px 32px',
+          borderRadius: 14,
+          fontSize: 16,
+          flexGrow: 1,
           fontWeight: 700,
           border: 'none',
           cursor: loading ? 'wait' : 'pointer',
@@ -89,7 +90,7 @@ export default function EarlyAccessForm() {
           flexShrink: 0,
         }}
       >
-        {loading ? 'Saving…' : 'Notify me'}
+        {loading ? 'Saving…' : 'Get early access'}
       </button>
     </form>
     {error && (
